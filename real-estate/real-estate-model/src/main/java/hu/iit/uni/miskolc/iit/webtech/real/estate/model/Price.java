@@ -1,10 +1,8 @@
 package hu.iit.uni.miskolc.iit.webtech.real.estate.model;
 
-public class Price implements Cloneable{
+import java.util.Currency;
 
-	public static enum Currency {
-		USD, HUF, EUR, AUD
-	}
+public class Price implements Cloneable {
 
 	private Currency currency;
 	private double ammount;
@@ -40,5 +38,4 @@ public class Price implements Cloneable{
 		return new Price(currency, ammount);
 	}
 
-	
 }
