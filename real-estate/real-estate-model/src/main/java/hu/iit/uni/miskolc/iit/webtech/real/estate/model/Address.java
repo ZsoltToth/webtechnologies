@@ -1,6 +1,6 @@
 package hu.iit.uni.miskolc.iit.webtech.real.estate.model;
 
-public class Address {
+public class Address implements Cloneable{
 
 	private String country;
 	private String county;
@@ -72,4 +72,10 @@ public class Address {
 		this.door = door;
 	}
 
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return new Address(country, county, city, zipCode, street, door);
+	}
+
+	
 }

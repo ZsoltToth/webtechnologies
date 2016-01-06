@@ -1,6 +1,6 @@
 package hu.iit.uni.miskolc.iit.webtech.real.estate.model;
 
-public class Price {
+public class Price implements Cloneable{
 
 	public static enum Currency {
 		USD, HUF, EUR, AUD
@@ -35,4 +35,10 @@ public class Price {
 		this.ammount = ammount;
 	}
 
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return new Price(currency, ammount);
+	}
+
+	
 }

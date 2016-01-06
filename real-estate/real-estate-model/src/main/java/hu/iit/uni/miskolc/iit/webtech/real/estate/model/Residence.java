@@ -2,8 +2,8 @@ package hu.iit.uni.miskolc.iit.webtech.real.estate.model;
 
 import java.util.Date;
 
-public class Residence {
-	
+public class Residence implements Cloneable {
+
 	private String residenceId;
 	private String name;
 	private String description;
@@ -19,9 +19,8 @@ public class Residence {
 		super();
 	}
 
-	public Residence(String residenceId, String name, String description,
-			Address address, Price price, Date published, Date expire,
-			String mainPhotoPath, String[] phathOfPhotos, User contact) {
+	public Residence(String residenceId, String name, String description, Address address, Price price, Date published,
+			Date expire, String mainPhotoPath, String[] phathOfPhotos, User contact) {
 		super();
 		this.residenceId = residenceId;
 		this.name = name;
@@ -115,4 +114,25 @@ public class Residence {
 		this.contact = contact;
 	}
 
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		Residence clone = new Residence(residenceId, name, description, (Address) address.clone(), (Price) price.clone(), (Date) published.clone(), (Date) expire.clone(),
+				mainPhotoPath, phathOfPhotos, (User)contact.clone());
+		return super.clone();
+	}
+
+	@Override
+	public int hashCode() {
+		return residenceId.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Residence == false){
+			return false;
+		}
+		return residenceId.equals(((Residence)obj).residenceId);
+	}
+
+	
 }
