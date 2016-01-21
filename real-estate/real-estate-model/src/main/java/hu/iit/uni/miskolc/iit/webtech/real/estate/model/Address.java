@@ -1,20 +1,58 @@
 package hu.iit.uni.miskolc.iit.webtech.real.estate.model;
 
-public class Address implements Cloneable{
+/**
+ * Represents an address.
+ * 
+ * 
+ * @author zsolt
+ *
+ */
+public class Address implements Cloneable {
 
+	/**
+	 * 
+	 */
 	private String country;
+	/**
+	 * 
+	 */
 	private String county;
+	/**
+	 * 
+	 */
 	private String city;
+	/**
+	 * 
+	 */
 	private String zipCode;
+	/**
+	 * 
+	 */
 	private String street;
+	/**
+	 * 
+	 */
 	private String door;
 
+	/**
+	 * Default constructor for serialization. It should not be used.
+	 */
 	public Address() {
 		super();
 	}
 
-	public Address(String country, String county, String city, String zipCode,
-			String street, String door) {
+	/**
+	 * It should be used.
+	 * 
+	 * @param country 
+	 * @param county 
+	 * @param city 
+	 * @param zipCode 
+	 * @param street 
+	 * @param door 
+	 */
+	public Address(final String country, final String county, final String city, final String zipCode,
+			final String street, final String door) {
 		super();
 		this.country = country;
 		this.county = county;
@@ -24,58 +62,105 @@ public class Address implements Cloneable{
 		this.door = door;
 	}
 
-	public String getCountry() {
+	/**
+	 * 
+	 * @return name of the country
+	 */
+	public final String getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	/**
+	 * 
+	 * @param country 
+	 */
+	public final void setCountry(final String country) {
 		this.country = country;
 	}
 
-	public String getCounty() {
+	/**
+	 * 
+	 * @return name of the county
+	 */
+	public final String getCounty() {
 		return county;
 	}
 
-	public void setCounty(String county) {
+	/**
+	 * 
+	 * @param county 
+	 */
+	public final void setCounty(final String county) {
 		this.county = county;
 	}
 
-	public String getCity() {
+	/**
+	 * 
+	 * @return name of the city
+	 */
+	public final String getCity() {
 		return city;
 	}
 
-	public void setCity(String city) {
+	/**
+	 * 
+	 * @param city 
+	 */
+	public final void setCity(final String city) {
 		this.city = city;
 	}
 
-	public String getZipCode() {
+	/**
+	 * 
+	 * @return zip code or postal code
+	 */
+	public final String getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(String zipCode) {
+	/**
+	 * 
+	 * @param zipCode 
+	 */
+	public final void setZipCode(final String zipCode) {
 		this.zipCode = zipCode;
 	}
 
-	public String getStreet() {
+	/**
+	 * 
+	 * @return name of the street
+	 */
+	public final String getStreet() {
 		return street;
 	}
 
-	public void setStreet(String street) {
+	/**
+	 * 
+	 * @param street 
+	 */
+	public final void setStreet(final String street) {
 		this.street = street;
 	}
 
-	public String getDoor() {
+	/**
+	 * 
+	 * @return door number or house number.
+	 */
+	public final String getDoor() {
 		return door;
 	}
 
-	public void setDoor(String door) {
+	/**
+	 * 
+	 * @param door number of door or house
+	 */
+	public final void setDoor(final String door) {
 		this.door = door;
 	}
 
 	@Override
-	public Object clone() throws CloneNotSupportedException {
+	public final Object clone() throws CloneNotSupportedException {
 		return new Address(country, county, city, zipCode, street, door);
 	}
 
-	
 }
