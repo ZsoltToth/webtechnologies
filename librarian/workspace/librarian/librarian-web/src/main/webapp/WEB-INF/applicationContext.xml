@@ -27,7 +27,9 @@
 	</bean>
 	 -->
 	<!-- DAO Beans -->
-
+	
+	<bean id="bookManager" class="hu.uni.miskolc.webtech.librarian.service.impl.BookManagerServiceImpl"/>
+	
 
 
 </beans>
