@@ -21,7 +21,8 @@ public class Author {
 		super();
 	}
 
-	public Author(int authorID, String name, Nationality nationality, Date birthDate) throws IllegalPersonNameException {
+	public Author(int authorID, String name, Nationality nationality, Date birthDate)
+			throws IllegalPersonNameException {
 		super();
 		this.authorID = authorID;
 		this.setName(name);
@@ -42,7 +43,7 @@ public class Author {
 	}
 
 	public void setName(String name) throws IllegalPersonNameException {
-		if(name.isEmpty()){
+		if (name.isEmpty()) {
 			throw new IllegalPersonNameException("Authors name is empty!");
 		}
 		this.name = name;
@@ -60,11 +61,17 @@ public class Author {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) throws IllegalBirthDateException{
-		if(birthDate.after(new Date())){
+	public void setBirthDate(Date birthDate) throws IllegalBirthDateException {
+		if (birthDate.after(new Date())) {
 			throw new IllegalBirthDateException("Birth date is in the future!");
 		}
 		this.birthDate = birthDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Author [authorID=" + authorID + ", name=" + name + ", nationality=" + nationality + ", birthDate="
+				+ birthDate + "]";
 	}
 
 }
