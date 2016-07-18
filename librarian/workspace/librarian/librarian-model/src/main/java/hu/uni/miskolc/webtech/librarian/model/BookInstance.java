@@ -2,13 +2,9 @@ package hu.uni.miskolc.webtech.librarian.model;
 
 public class BookInstance {
 
-	private int inventoryNo;
+	private final int inventoryNo;
 	private Book instanceofBook;
 	private double price;
-
-	public BookInstance() {
-		super();
-	}
 
 	public BookInstance(int inventoryNo, Book instanceofBook, double price) {
 		super();
@@ -19,10 +15,6 @@ public class BookInstance {
 
 	public int getInventoryNo() {
 		return inventoryNo;
-	}
-
-	public void setInventoryNo(int inventoryNo) {
-		this.inventoryNo = inventoryNo;
 	}
 
 	public Book getInstanceofBook() {

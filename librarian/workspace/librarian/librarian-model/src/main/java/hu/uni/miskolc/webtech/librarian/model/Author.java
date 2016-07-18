@@ -1,6 +1,7 @@
 package hu.uni.miskolc.webtech.librarian.model;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalBirthDateException;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameException;
@@ -12,39 +13,28 @@ import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameExcept
  */
 public class Author {
 
-	private int authorID;
+	private final int authorID;
 	private String name;
 	private Nationality nationality;
 	private Date birthDate;
 
-	public Author() {
-		super();
-	}
-
 	public Author(int authorID, String name, Nationality nationality, Date birthDate)
-			throws IllegalPersonNameException {
+			throws IllegalPersonNameException, IllegalBirthDateException {
 		super();
 		this.authorID = authorID;
 		this.setName(name);
 		this.nationality = nationality;
-		this.birthDate = birthDate;
-	}
-
-	public int getAuthorID() {
-		return authorID;
-	}
-
-	public void setAuthorID(int authorID) {
-		this.authorID = authorID;
+		this.setBirthDate(birthDate);
 	}
 
 	public String getName() {
+
 		return name;
 	}
 
-	public void setName(String name) throws IllegalPersonNameException {
-		if (name.isEmpty()) {
-			throw new IllegalPersonNameException("Authors name is empty!");
+	private void setName(String name) throws IllegalPersonNameException {
+		if ("".equals(name)) {
+			throw new IllegalPersonNameException(String.format("The %s name is not valid", name));
 		}
 		this.name = name;
 	}
@@ -62,10 +52,14 @@ public class Author {
 	}
 
 	public void setBirthDate(Date birthDate) throws IllegalBirthDateException {
-		if (birthDate.after(new Date())) {
-			throw new IllegalBirthDateException("Birth date is in the future!");
+		if(birthDate == null || !birthDate.before(new GregorianCalendar().getTime())){
+			throw new IllegalBirthDateException(String.format("Date <%s> is not in the past!", birthDate));
 		}
 		this.birthDate = birthDate;
+	}
+
+	public int getAuthorID() {
+		return authorID;
 	}
 
 	@Override

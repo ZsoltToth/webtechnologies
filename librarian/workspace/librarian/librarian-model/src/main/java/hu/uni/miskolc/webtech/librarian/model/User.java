@@ -2,15 +2,11 @@ package hu.uni.miskolc.webtech.librarian.model;
 
 public class User {
 
-	private int userId;
+	private final int userId;
 	private String name;
 	private String email;
 	private String password;
 	private Role role;
-
-	public User() {
-		super();
-	}
 
 	public User(int userId, String name, String email, String password, Role role) {
 		super();
@@ -23,10 +19,6 @@ public class User {
 
 	public int getUserId() {
 		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public String getName() {
