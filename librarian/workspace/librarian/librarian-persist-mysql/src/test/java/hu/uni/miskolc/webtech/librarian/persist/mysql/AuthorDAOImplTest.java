@@ -11,20 +11,16 @@ import org.junit.Test;
 import hu.uni.miskolc.webtech.librarian.model.Author;
 import hu.uni.miskolc.webtech.librarian.persist.AuthorDAO;
 
-public class AuthorDAOImplTest extends SetupDBTests{
+public class AuthorDAOImplTest extends SetupDBTests {
 
-	private AuthorDAO dao;	
+	private AuthorDAO dao;
 
 	@Before
-	public void setUp()  {
+	public void setUp() {
 		super.setUp();
-		
-		String url = String.format("jdbc:mysql://%s:%s/%s", HOST, PORT, DATABASE);
-		try{
-			this.dao = new AuthorDAOImpl(SetupDBTests.MYBATIS_CONFIG_FILE, "com.mysql.jdbc.Driver",
-					url, USER, PASSWORD);
-		}
-		catch(Exception ex){
+		try {
+			this.dao = new AuthorDAOImpl(SetupDBTests.MYBATIS_CONFIG_FILE, HOST, PORT, DATABASE, USER, PASSWORD);
+		} catch (Exception ex) {
 			fail(ex.getMessage());
 		}
 	}

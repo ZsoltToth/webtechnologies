@@ -20,13 +20,17 @@ import hu.uni.miskolc.webtech.librarian.persist.mysql.mapper.AuthorMapper;
 
 public class AuthorDAOImpl implements AuthorDAO {
 	
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	
 	private SqlSessionFactory sqlSessionFactory;
 	
-	public AuthorDAOImpl(String mybatisConfigPath, String driver, String url, String user, String password) throws FileNotFoundException{
+	
+	public AuthorDAOImpl(String mybatisConfigPath, String host, int port, String database, String user, String password) throws FileNotFoundException{
 		File configFile = new File(mybatisConfigPath);
 		InputStream inputStream = new FileInputStream(configFile);
+		String url = String.format("jdbc:mysql://%s:%s/%s", host, port, database);
 		Properties props = new Properties();
-		props.put("driver", driver);
+		props.put("driver", JDBC_DRIVER);
 		props.put("url", url);
 		props.put("username", user);
 		props.put("password", password);

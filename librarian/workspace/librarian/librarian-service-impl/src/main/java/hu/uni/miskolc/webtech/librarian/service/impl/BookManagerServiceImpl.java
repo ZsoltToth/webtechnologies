@@ -8,13 +8,18 @@ import java.util.GregorianCalendar;
 import hu.uni.miskolc.webtech.librarian.model.Author;
 import hu.uni.miskolc.webtech.librarian.model.Book;
 import hu.uni.miskolc.webtech.librarian.model.Nationality;
+import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalBirthDateException;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameException;
+import hu.uni.miskolc.webtech.librarian.persist.AuthorDAO;
 import hu.uni.miskolc.webtech.librarian.service.BookManagerService;
 
 public class BookManagerServiceImpl implements BookManagerService {
+	
+	private AuthorDAO authorDAO;
+	
 
-	public BookManagerServiceImpl() {
-		// TODO Auto-generated constructor stub
+	public BookManagerServiceImpl(AuthorDAO authorDAO) {
+		this.authorDAO = authorDAO;
 	}
 
 	public void addAuthor(Author author) {
@@ -28,17 +33,7 @@ public class BookManagerServiceImpl implements BookManagerService {
 	}
 
 	public Collection<Author> queryAuthors() {
-
-		try{
-		return Arrays.asList(
-				new Author(1, "Madach Imre", Nationality.Hungarian	, new GregorianCalendar(1848, 12, 12).getTime()),
-				new Author(1, "Madach Imre", Nationality.Hungarian	, new GregorianCalendar(1848, 12, 12).getTime())
-				);
-		}
-		catch(IllegalPersonNameException ex){
-			
-		}
-		return null;
+		return authorDAO.readAuthors();
 	}
 
 	public void addBook(Book book) {
