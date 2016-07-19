@@ -32,6 +32,11 @@ public class AuthorDAOImpl implements AuthorDAO {
 		props.put("password", password);
 		this.sqlSessionFactory = (new SqlSessionFactoryBuilder()).build(inputStream, props);
 	}
+	
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+	}
 
 	public void createAuthor(Author author) throws ExistingAuthorException {
 		// TODO Auto-generated method stub
@@ -43,6 +48,8 @@ public class AuthorDAOImpl implements AuthorDAO {
 		SqlSession session = this.sqlSessionFactory.openSession();
 		AuthorMapper authorMapper = (AuthorMapper)session.getMapper(AuthorMapper.class);
 		result = authorMapper.selectAuthors();
+		session.commit();
+		session.close();
 		return result;
 	}
 

@@ -18,13 +18,23 @@ public class Author {
 	private Nationality nationality;
 	private Date birthDate;
 
-	public Author(int authorID, String name, Nationality nationality, Date birthDate)
+	public Author(Integer authorID, String name, Nationality nationality, Date birthDate)
 			throws IllegalPersonNameException, IllegalBirthDateException {
 		super();
 		this.authorID = authorID;
 		this.setName(name);
 		this.nationality = nationality;
 		this.setBirthDate(birthDate);
+	}
+	
+	public Author(Integer authorID, String name, String nationality, Date birthDate)
+			throws IllegalPersonNameException, IllegalBirthDateException {
+		this(authorID, name, Nationality.valueOf(nationality), birthDate);
+	}
+	
+	public Author(Integer authorID, String name, String nationality, java.sql.Date birthDate)
+			throws IllegalPersonNameException, IllegalBirthDateException {
+		this(authorID, name, Nationality.valueOf(nationality), birthDate);
 	}
 
 	public String getName() {

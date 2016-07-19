@@ -1,1 +1,1 @@
-drop table author;
+drop table IF EXISTS author;

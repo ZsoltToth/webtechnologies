@@ -7,8 +7,8 @@
 	<resultMap type="Author" id="AuthorResultMap">
 		<id property="authorID" column="authorId" />
 		<result property="name" column="authorName" />
-		<result property="nationality" column="nationality"/>
-		<result property="birthDate" column="birthDate"/>
+		<result property="nationality" column="nationality" javaType="Nationality" jdbcType="VARCHAR"/>
+		<result property="birthDate" column="birthDate" javaType="java.util.Date" jdbcType="DATE" typeHandler="DateOnlyTypeHandler"/>
 	</resultMap>
 
 

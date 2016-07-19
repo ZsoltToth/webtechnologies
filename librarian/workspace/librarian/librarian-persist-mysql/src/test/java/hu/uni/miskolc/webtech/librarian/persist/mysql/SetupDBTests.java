@@ -21,7 +21,6 @@ import org.junit.Test;
 
 import com.mysql.jdbc.Driver;
 
-
 public class SetupDBTests {
 
 	public static final String MYBATIS_CONFIG_FILE = "src/main/resources/mybatis-configuration.xml";
@@ -50,25 +49,22 @@ public class SetupDBTests {
 		File dropTablesSQL = new File(TEST_DROP_TABLES);
 		File setupTestSQL = new File(TEST_SETUP_SQL);
 		File teardownSQL = new File(TEST_TEAR_DOWN_SQL);
-		
-		
-//		System.out.println(mybatisConfig.exists());
-//		System.out.println(createTablesSQL.exists());
-//		System.out.println(dropTablesSQL.exists());
-//		System.out.println(setupTestSQL.exists());
-//		System.out.println(teardownSQL.exists());
 
-		
+		// System.out.println(mybatisConfig.exists());
+		// System.out.println(createTablesSQL.exists());
+		// System.out.println(dropTablesSQL.exists());
+		// System.out.println(setupTestSQL.exists());
+		// System.out.println(teardownSQL.exists());
+
 		Assume.assumeTrue(mybatisConfig.exists());
 		Assume.assumeTrue(createTablesSQL.exists());
 		Assume.assumeTrue(dropTablesSQL.exists());
 		Assume.assumeTrue(setupTestSQL.exists());
 		Assume.assumeTrue(teardownSQL.exists());
-		
 
 		/* Check System Properties */
 		String host = System.getProperty("database.host");
-		
+
 		int port = -1;
 		try {
 			port = Integer.parseInt(System.getProperty("database.port"));
@@ -102,23 +98,27 @@ public class SetupDBTests {
 		try {
 			runSQLScript(TEST_DROP_TABLES);
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			Assume.assumeNoException(e);
 		}
-
+//		System.out.println("bye bye");
 	}
 
 	private static void runSQLScript(String scriptFile)
-			throws ClassNotFoundException, SQLException, FileNotFoundException,
-			IOException {
+			throws ClassNotFoundException, SQLException, FileNotFoundException, IOException {
 
 		Class.forName(Driver.class.getName());
-		final String connectionURL = String.format("jdbc:mysql://%s:%d/%s",
-				HOST, PORT, DATABASE);
-		Connection connection = DriverManager.getConnection(connectionURL,
-				USER, PASSWORD);
+		final String connectionURL = String.format("jdbc:mysql://%s:%d/%s", HOST, PORT, DATABASE);
+		Connection connection = DriverManager.getConnection(connectionURL, USER, PASSWORD);
+		connection.setAutoCommit(false);
 		ScriptRunner runner = new ScriptRunner(connection);
+		runner.setStopOnError(true);
 		Reader reader = new FileReader(scriptFile);
+		if (!connection.getAutoCommit()) {
+			connection.commit();
+		}
 		runner.runScript(reader);
+		runner.closeConnection();
 		connection.close();
 		reader.close();
 	}

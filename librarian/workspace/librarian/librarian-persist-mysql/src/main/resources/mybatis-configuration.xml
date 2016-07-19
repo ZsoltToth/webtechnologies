@@ -7,10 +7,17 @@
 	<typeAliases>
 		<typeAlias alias="Author"
 			type="hu.uni.miskolc.webtech.librarian.model.Author" />
+		<typeAlias alias="Nationality"
+			type="hu.uni.miskolc.webtech.librarian.model.Nationality" />
+
+		<typeAlias alias="DateOnlyTypeHandler"
+			type="org.apache.ibatis.type.DateOnlyTypeHandler" />
 
 	</typeAliases>
-	<!-- <typeHandlers> <typeHandler handler="UUIDTypeHandler" javaType="UUID" 
-		jdbcType="VARCHAR" /> </typeHandlers> -->
+	<typeHandlers>
+		<typeHandler handler="DateOnlyTypeHandler" javaType="java.util.Date"
+			jdbcType="DATE" />
+	</typeHandlers>
 	<environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
