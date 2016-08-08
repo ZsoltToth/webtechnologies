@@ -7,8 +7,8 @@ import hu.uni.miskolc.webtech.librarian.model.Book;
 
 public interface BookManagerService {
 	
-	public void addAuthor(Author author);
-	public void updateAuthor(Author author);
+	public void addAuthor(Author author) throws AuthorManipulationException;
+	public void updateAuthor(Author author) throws AuthorManipulationException;
 	
 	public Collection<Author> queryAuthors();
 	
