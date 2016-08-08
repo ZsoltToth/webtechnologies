@@ -23,4 +23,31 @@
 			<version>2.6.2</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-remote-resources-plugin</artifactId>
+					<version>1.5</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-remote-resources-plugin</artifactId>
+				<executions>
+					<!-- <execution> <goals> <goal>bundle</goal> </goals> </execution> -->
+				</executions>
+				<configuration>
+					<includes>
+						<include>${basedir}/src/main/resources/*</include>
+					</includes>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
 </project>

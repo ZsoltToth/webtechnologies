@@ -2,10 +2,13 @@ package hu.uni.miskolc.webtech.librarian.controller;
 
 import java.util.Collection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +25,8 @@ import hu.uni.miskolc.webtech.librarian.service.BookManagerService;
 
 @Controller
 public class BookAdministrationController {
+	
+	private static final Logger LOG = LogManager.getLogger();
 
 	@Autowired
 	private BookManagerService bookManager;
@@ -44,23 +49,27 @@ public class BookAdministrationController {
 		try {
 			bookManager.addAuthor(AuthorAssembler.assembleAuthor(author));
 		} catch (IllegalPersonNameException e) {
+			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
 
 		} catch (IllegalBirthDateException e) {
+			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
 		}
 	}
 
 	@RequestMapping(value = { "/author/update" }, method = RequestMethod.POST)
-	public void updateAuthor(@RequestBody AuthorDTO author) throws AuthorManipulationException {
+	public void updateAuthor(@ModelAttribute AuthorDTO author) throws AuthorManipulationException {
 
 		try {
 			Author a = AuthorAssembler.assembleAuthor(author);
 			bookManager.updateAuthor(a);
 
 		} catch (IllegalPersonNameException e) {
+			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
 		} catch (IllegalBirthDateException e) {
+			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
 		}
 	}
