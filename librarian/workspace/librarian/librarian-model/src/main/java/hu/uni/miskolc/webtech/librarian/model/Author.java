@@ -26,12 +26,12 @@ public class Author {
 		this.nationality = nationality;
 		this.setBirthDate(birthDate);
 	}
-	
+
 	public Author(Integer authorID, String name, String nationality, Date birthDate)
 			throws IllegalPersonNameException, IllegalBirthDateException {
 		this(authorID, name, Nationality.valueOf(nationality), birthDate);
 	}
-	
+
 	public Author(Integer authorID, String name, String nationality, java.sql.Date birthDate)
 			throws IllegalPersonNameException, IllegalBirthDateException {
 		this(authorID, name, Nationality.valueOf(nationality), birthDate);
@@ -62,7 +62,7 @@ public class Author {
 	}
 
 	public void setBirthDate(Date birthDate) throws IllegalBirthDateException {
-		if(birthDate == null || !birthDate.before(new GregorianCalendar().getTime())){
+		if (birthDate == null || !birthDate.before(new GregorianCalendar().getTime())) {
 			throw new IllegalBirthDateException(String.format("Date <%s> is not in the past!", birthDate));
 		}
 		this.birthDate = birthDate;
@@ -76,6 +76,43 @@ public class Author {
 	public String toString() {
 		return "Author [authorID=" + authorID + ", name=" + name + ", nationality=" + nationality + ", birthDate="
 				+ birthDate + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + authorID;
+		result = prime * result + ((birthDate == null) ? 0 : birthDate.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((nationality == null) ? 0 : nationality.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Author other = (Author) obj;
+//		if (authorID != other.authorID)
+//			return false;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (nationality != other.nationality)
+			return false;
+		return true;
 	}
 
 }
