@@ -100,8 +100,16 @@ public class AuthorDAOImpl implements AuthorDAO {
 	}
 
 	public void updateAuthor(Author author) throws AuthorNotFoundException {
-		// TODO Auto-generated method stub
-
+		SqlSession session = this.sqlSessionFactory.openSession();
+		try{
+			AuthorMapper mapper = (AuthorMapper) session.getMapper(AuthorMapper.class);
+			mapper.updateAuthor(author);
+		}
+		catch(Exception ex){
+			throw new AuthorNotFoundException(ex);
+		}
+		session.commit();
+		session.close();
 	}
 
 	public void deleteAuthor(Author author) throws AuthorNotFoundException {

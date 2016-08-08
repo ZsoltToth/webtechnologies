@@ -44,6 +44,10 @@
 		authorName = #{name}, nationality = #{nationality}, birthDate =
 		#{birthDate} where authorId = #{authorID};
 	</update>
+	
+	<delete id="deleteAuthor" parameterType="Author">
+		delete author where authorId = #{authorID};
+	</delete>
 
 	<!-- <select id="selectZonesByName" resultMap="ZoneResultMap"> select * 
 		from Zone where name like #{name}; </select> <select id="selectZoneByUUID" 

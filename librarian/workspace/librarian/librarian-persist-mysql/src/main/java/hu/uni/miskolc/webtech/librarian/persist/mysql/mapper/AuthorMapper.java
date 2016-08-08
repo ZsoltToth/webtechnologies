@@ -21,4 +21,6 @@ public interface AuthorMapper {
 			@Param("birthDate") Date birthDate);
 
 	public void updateAuthor(@Param("author") Author author);
+
+	public void deleteAuthor(@Param("author") Author author);
 }
