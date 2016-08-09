@@ -1,5 +1,8 @@
 package hu.uni.miskolc.webtech.librarian.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import hu.uni.miskolc.webtech.librarian.controller.dto.AuthorAssembler;
 import hu.uni.miskolc.webtech.librarian.controller.dto.AuthorDTO;
 import hu.uni.miskolc.webtech.librarian.model.Author;
+import hu.uni.miskolc.webtech.librarian.model.Nationality;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalBirthDateException;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameException;
 import hu.uni.miskolc.webtech.librarian.service.AuthorManipulationException;
@@ -28,6 +32,8 @@ public class BookAdministrationController {
 	
 	private static final Logger LOG = LogManager.getLogger();
 
+	
+	
 	@Autowired
 	private BookManagerService bookManager;
 
@@ -44,8 +50,10 @@ public class BookAdministrationController {
 		return bookManager.queryAuthors();
 	}
 
-	@RequestMapping(value = { "/author/insert" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/author/insert" }, method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
 	public void createAuthor(@RequestBody AuthorDTO author) throws AuthorManipulationException {
+		LOG.info(author);
 		try {
 			bookManager.addAuthor(AuthorAssembler.assembleAuthor(author));
 		} catch (IllegalPersonNameException e) {
@@ -58,13 +66,17 @@ public class BookAdministrationController {
 		}
 	}
 
-	@RequestMapping(value = { "/author/update" }, method = RequestMethod.POST)
-	public void updateAuthor(@ModelAttribute AuthorDTO author) throws AuthorManipulationException {
-
+	@RequestMapping(
+			value = { "/author/update" }, 
+			method = RequestMethod.POST,
+			consumes = {"application/json"}
+			)
+	public void updateAuthor(@RequestBody AuthorDTO author) throws AuthorManipulationException {
+		LOG.info(author);
 		try {
 			Author a = AuthorAssembler.assembleAuthor(author);
 			bookManager.updateAuthor(a);
-
+			LOG.info("update is done");
 		} catch (IllegalPersonNameException e) {
 			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
@@ -73,13 +85,24 @@ public class BookAdministrationController {
 			throw new AuthorManipulationException(e.getMessage(), e);
 		}
 	}
+	
+	
+	
+	@RequestMapping("/author/dto")
+	@ResponseBody
+	public AuthorDTO exampleAuthorDTO() throws IllegalPersonNameException, IllegalBirthDateException, ParseException{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return AuthorAssembler.assembleDTO(new Author(0, "John Doe", Nationality.American, dateFormat.parse("1234-12-21")));
+	}
 
 	// Exception handling methods
 
 	@ResponseStatus(value = HttpStatus.CONFLICT)
 	@ExceptionHandler(AuthorManipulationException.class)
-	public void authorManipulationExceptionHandler() {
-
+	@ResponseBody
+	public String authorManipulationExceptionHandler(Exception ex) {
+		LOG.fatal(ex.getMessage() + "caused by " + ex.getCause().getMessage());
+		return ex.getMessage();
 	}
 
 }

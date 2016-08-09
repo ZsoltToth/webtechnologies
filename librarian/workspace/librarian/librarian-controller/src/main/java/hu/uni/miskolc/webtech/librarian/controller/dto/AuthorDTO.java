@@ -2,6 +2,8 @@ package hu.uni.miskolc.webtech.librarian.controller.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import hu.uni.miskolc.webtech.librarian.model.Author;
 import hu.uni.miskolc.webtech.librarian.model.Nationality;
 
@@ -10,6 +12,7 @@ public class AuthorDTO {
 	private int authorID;
 	private String name;
 	private Nationality nationality;
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 
 	public AuthorDTO() {
@@ -51,7 +54,8 @@ public class AuthorDTO {
 	@Override
 	public String toString() {
 		return "AuthorDTO [authorID=" + authorID + ", name=" + name + ", nationality=" + nationality + ", birthDate="
-				+ birthDate + "]";
+				+ birthDate 
+				+"]";
 	}
 
 	

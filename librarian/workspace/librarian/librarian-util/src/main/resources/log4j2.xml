@@ -49,7 +49,7 @@
 			<AppenderRef ref="MODEL_LOGS" />
 		</Logger>
 
-		<Root level="info">
+		<Root level="trace">
 			<AppenderRef ref="ALL_LOGS" level="error" />
 			<AppenderRef ref="STDOUT" level="warn" />
 		</Root>
