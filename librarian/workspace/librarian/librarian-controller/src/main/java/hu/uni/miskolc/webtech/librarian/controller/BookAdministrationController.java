@@ -101,7 +101,7 @@ public class BookAdministrationController {
 	@ExceptionHandler(AuthorManipulationException.class)
 	@ResponseBody
 	public String authorManipulationExceptionHandler(Exception ex) {
-		LOG.fatal(ex.getMessage() + "caused by " + ex.getCause().getMessage());
+		LOG.error(ex.getMessage() + "caused by " + ex.getCause().getMessage());
 		return ex.getMessage();
 	}
 
