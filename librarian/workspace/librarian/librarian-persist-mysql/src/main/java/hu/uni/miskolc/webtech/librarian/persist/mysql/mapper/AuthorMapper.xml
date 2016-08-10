@@ -41,12 +41,12 @@
 
 	<update id="updateAuthor" parameterType="Author">
 		update author set
-		authorName = #{name}, nationality = #{nationality}, birthDate =
-		#{birthDate} where authorId = #{authorID};
+		authorName = #{author.name}, nationality = #{author.nationality}, birthDate =
+		#{author.birthDate} where authorId = #{author.authorID};
 	</update>
 	
 	<delete id="deleteAuthor" parameterType="Author">
-		delete author where authorId = #{authorID};
+		delete author where authorId = #{author.authorID};
 	</delete>
 
 	<!-- <select id="selectZonesByName" resultMap="ZoneResultMap"> select * 

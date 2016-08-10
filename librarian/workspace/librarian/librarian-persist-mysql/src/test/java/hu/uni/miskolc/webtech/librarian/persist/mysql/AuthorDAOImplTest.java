@@ -103,6 +103,16 @@ public class AuthorDAOImplTest extends SetupDBTests {
 		}
 		assertEquals(String.format("%s != %s", expected, actuals.get(0)),expected, actuals.get(0));
 	}
+	
+	@Test
+	public void testUpdateAuthor() throws IllegalPersonNameException, IllegalBirthDateException, ParseException, AuthorNotFoundException{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Author expected = new Author(1, "Jozsef Pista", Nationality.Hungarian, dateFormat.parse("1905-04-11"));
+		dao.updateAuthor(expected);
+		Author actual = dao.readAuthor(expected.getAuthorID());
+		
+		assertEquals(String.format("%s not equals %s", expected, actual),expected, actual);
+	}
 
 //	@Test
 //	public void testSelectAuthorsById() {
