@@ -1,5 +1,6 @@
 package hu.uni.miskolc.webtech.librarian.controller;
 
+import java.security.Provider.Service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,7 @@ import hu.uni.miskolc.webtech.librarian.service.AuthorManipulationException;
 import hu.uni.miskolc.webtech.librarian.service.BookManagerService;
 
 @Controller
-public class BookAdministrationController {
+public class AuthorAdministrationController {
 	
 	private static final Logger LOG = LogManager.getLogger();
 
@@ -37,11 +38,11 @@ public class BookAdministrationController {
 	@Autowired
 	private BookManagerService bookManager;
 
-	public BookAdministrationController() {
+	public AuthorAdministrationController() {
 		super();
 	}
 
-	public BookAdministrationController(BookManagerService bookManager) {
+	public AuthorAdministrationController(BookManagerService bookManager) {
 		this.bookManager = bookManager;
 	}
 
@@ -53,7 +54,7 @@ public class BookAdministrationController {
 	@RequestMapping(value = { "/author/insert" }, method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
 	public void createAuthor(@RequestBody AuthorDTO author) throws AuthorManipulationException {
-		LOG.info(author);
+//		LOG.info(author);
 		try {
 			bookManager.addAuthor(AuthorAssembler.assembleAuthor(author));
 		} catch (IllegalPersonNameException e) {
@@ -71,12 +72,13 @@ public class BookAdministrationController {
 			method = RequestMethod.POST,
 			consumes = {"application/json"}
 			)
+	@ResponseBody
 	public void updateAuthor(@RequestBody AuthorDTO author) throws AuthorManipulationException {
-		LOG.info(author);
+//		LOG.info(author);
 		try {
 			Author a = AuthorAssembler.assembleAuthor(author);
 			bookManager.updateAuthor(a);
-			LOG.info("update is done");
+//			LOG.info("update is done");
 		} catch (IllegalPersonNameException e) {
 			LOG.info(e.getMessage());
 			throw new AuthorManipulationException(e.getMessage(), e);
@@ -85,8 +87,7 @@ public class BookAdministrationController {
 			throw new AuthorManipulationException(e.getMessage(), e);
 		}
 	}
-	
-	
+
 	
 	@RequestMapping("/author/dto")
 	@ResponseBody
