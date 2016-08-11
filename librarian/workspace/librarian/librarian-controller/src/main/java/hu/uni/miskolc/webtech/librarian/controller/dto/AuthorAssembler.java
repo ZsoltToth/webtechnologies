@@ -1,11 +1,5 @@
 package hu.uni.miskolc.webtech.librarian.controller.dto;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
-
 import hu.uni.miskolc.webtech.librarian.model.Author;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalBirthDateException;
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameException;
@@ -13,7 +7,7 @@ import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameExcept
 public class AuthorAssembler {
 
 	public static Author assembleAuthor(AuthorDTO dto) throws IllegalPersonNameException, IllegalBirthDateException{
-		return new Author(-1, dto.getName(), dto.getNationality(), dto.getBirthDate());
+		return new Author(dto.getAuthorID(), dto.getName(), dto.getNationality(), dto.getBirthDate());
 	}
 	
 	public static AuthorDTO assembleDTO(Author author){

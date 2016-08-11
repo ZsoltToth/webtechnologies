@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import hu.uni.miskolc.webtech.librarian.model.Author;
 import hu.uni.miskolc.webtech.librarian.model.Nationality;
 
 public class AuthorDTO {
