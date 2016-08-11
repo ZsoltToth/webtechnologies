@@ -17,7 +17,7 @@ public class Book {
 		this.genres = genres;
 		this.authors = authors;
 	}
-	
+
 	public Book(int bookId, String title, Collection<Author> authors) {
 		this(bookId, title, new ArrayList<Genre>(), authors);
 	}
@@ -25,7 +25,6 @@ public class Book {
 	public int getBookId() {
 		return bookId;
 	}
-
 
 	public String getTitle() {
 		return title;
@@ -35,14 +34,13 @@ public class Book {
 		return new ArrayList<Genre>(genres);
 	}
 
-	public void addGenre(Genre genre){
+	public void addGenre(Genre genre) {
 		this.genres.add(genre);
 	}
-	
-	public void removeGenre(Genre genre){
+
+	public void removeGenre(Genre genre) {
 		this.genres.remove(genre);
 	}
-	
 
 	public Collection<Author> getAuthors() {
 		return authors;
@@ -50,6 +48,10 @@ public class Book {
 
 	public void setAuthors(Collection<Author> authors) {
 		this.authors = authors;
+	}
+
+	public void setGenres(Collection<Genre> genres) {
+		this.genres = genres;
 	}
 
 }

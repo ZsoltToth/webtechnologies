@@ -58,8 +58,12 @@ public class BookDAOImpl implements BookDAO {
 		BookMapper mapper = session.getMapper(BookMapper.class);
 
 		Collection<Genre> genres = mapper
-				.queryGenresOfBook(new Book(1, "Romeo and Juliette", new ArrayList<Genre>(), new ArrayList<Author>()));
+				.queryGenresOfBook(1);
+		Collection<Author> authors = mapper.queryAuthorsOfBook(1);
+		Collection<Book> books = mapper.selectBooks();
 		System.out.println(genres);
+		System.out.println(authors);
+		System.out.println(books);
 
 		session.close();
 
