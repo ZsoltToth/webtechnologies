@@ -4,7 +4,9 @@ insert into author(authorId,authorName, nationality, birthDate) values(2,'Willia
 insert into author(authorId,authorName, nationality, birthDate) values(3,'Ady Endre','Hungarian',Date('1877-11-22'));
 
 
-insert into book(title) values ('Romeo and Juliet');
+insert into book(bookId, title) values (1,'Romeo and Juliet');
+
+insert into bookAuthor values(1,2);
 
 insert into genre values('Romance',1);
 
