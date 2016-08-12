@@ -18,6 +18,12 @@ public class Book {
 		this.authors = authors;
 	}
 
+	private Book(Integer bookId, String title) {
+		super();
+		this.bookId = bookId;
+		this.title = title;
+	}
+
 	public Book(int bookId, String title, Collection<Author> authors) {
 		this(bookId, title, new ArrayList<Genre>(), authors);
 	}
@@ -53,5 +59,12 @@ public class Book {
 	public void setGenres(Collection<Genre> genres) {
 		this.genres = genres;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [bookId=" + bookId + ", title=" + title + ", genres=" + genres + ", authors=" + authors + "]";
+	}
+	
+	
 
 }
