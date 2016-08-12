@@ -7,7 +7,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -38,7 +41,7 @@ public class BookDAOImpl implements BookDAO {
 			throws FileNotFoundException {
 		File configFile = new File(mybatisConfigPath);
 		InputStream inputStream = new FileInputStream(configFile);
-		String url = String.format("jdbc:mysql://%s:%s/%s", host, port, database);
+		String url = String.format("jdbc:mysql://%s:%s/%s?allowMultiQueries=true", host, port, database);
 		Properties props = new Properties();
 		props.put("driver", JDBC_DRIVER);
 		props.put("url", url);
@@ -53,50 +56,112 @@ public class BookDAOImpl implements BookDAO {
 	}
 
 	public Collection<Book> readBooks() {
-		// TODO Auto-generated method stub
+		Collection<Book> result = new ArrayList<Book>();
 		SqlSession session = sqlSessionFactory.openSession();
-		BookMapper mapper = session.getMapper(BookMapper.class);
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			result = mapper.selectBooks();
+		} finally {
+			session.close();
+		}
 
-		Collection<Genre> genres = mapper
-				.queryGenresOfBook(1);
-		Collection<Author> authors = mapper.queryAuthorsOfBook(1);
-		Collection<Book> books = mapper.selectBooks();
-		System.out.println(genres);
-		System.out.println(authors);
-		System.out.println(books);
-
-		session.close();
-
-		return null;
+		return result;
 	}
 
 	public Collection<Book> readBooks(String title) {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Book> result = new ArrayList<Book>();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			result = mapper.selectBooksByTitle("%"+title+"%");
+		} finally {
+			session.close();
+		}
+
+		return result;
 	}
 
 	public Collection<Book> readBooks(Author author) {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Book> result = new ArrayList<Book>();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			result = mapper.selectBooksByAuthor(author);
+		} finally {
+			session.close();
+		}
+
+		return result;
 	}
 
 	public Collection<Book> readBooks(Genre genre) {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Book> result = new ArrayList<Book>();
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			result = mapper.selectBooksByGenre(genre);
+		} finally {
+			session.close();
+		}
+
+		return result;
 	}
 
 	public void updateBook(Book book) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			Book oldBook = mapper.selectBookById(book.getBookId()); 
+			if( oldBook == null){
+				throw new BookNotFoundException(String.format("The book %s cannot be found in the database", book));
+			}
+			Set<Author> removedAuthors = new HashSet<Author>(oldBook.getAuthors());
+			removedAuthors.removeAll(book.getAuthors());
+			for(Author author : removedAuthors){
+				mapper.removeAuthorFromBook(book.getBookId(), author.getAuthorID());
+			}
+			//Check whether the Author exists or not. Existence of the author is assumed.
+			Set<Author> addedAuthors = new HashSet<Author>(book.getAuthors());
+			addedAuthors.removeAll(new HashSet<Author>(oldBook.getAuthors()));
+			for(Author author : addedAuthors){
+				mapper.insertAuthorForBook(book.getBookId(), author.getAuthorID());
+			}
+			Set<Genre> removedGenres = new HashSet<Genre>(oldBook.getGenres());
+			removedAuthors.removeAll(book.getGenres());
+			for(Genre genre : removedGenres){
+				mapper.removeGenreFromBook(genre, book.getBookId());
+			}
+			Set<Genre> addedGenres = new HashSet<Genre>(book.getGenres());
+			addedAuthors.removeAll(oldBook.getGenres());
+			for(Genre genre : addedGenres){
+				mapper.insertGenreForBook(genre, book.getBookId());
+			}
+			mapper.updateBook(book);
+			
+		} finally {
+			session.close();
+		}
 	}
 
 	public void deleteBook(Book book) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-
+		if(book == null){
+			throw new BookNotFoundException("The book was null");
+		}
+		deleteBook(book.getBookId());
 	}
 
 	public void deleteBook(int bookId) throws BookNotFoundException {
-		// TODO Auto-generated method stub
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			BookMapper mapper = session.getMapper(BookMapper.class);
+			if(mapper.selectBookById(bookId) == null){
+				throw new BookNotFoundException(String.format("The book %s cannot be found in the database", bookId));
+			}
+			mapper.deleteBookById(bookId);
+			session.commit();
+		} finally {
+			session.close();
+		}
 
 	}
 

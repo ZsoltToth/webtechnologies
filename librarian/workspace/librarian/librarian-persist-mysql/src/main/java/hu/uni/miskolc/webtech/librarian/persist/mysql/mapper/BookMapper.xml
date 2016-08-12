@@ -11,20 +11,7 @@
 		<result property="title" column="title" />
 		<collection property="genres" column="bookId" select="queryGenresOfBook"/>
 		<collection property="authors" column="bookId" select="queryAuthorsOfBook"/>
-		<!-- <result property="genres" javaType="Genre" column="bookId" select="queryGenresOfBook" /> -->
-	
-		<!-- <association property="genres" javaType="Genre">
-			<association property="genres" column="bookId" select="queryGenresOfBook" />
-		</association>
-		<association property="authors" javaType="Author">
-			<association property="authros" column="bookId" select="queryAuthorsOfBook" />
-		</association>
-		-->
 	</resultMap>
-
-	<select id="selectBooks" resultMap="BookRM">
-		select * from book;
-	</select>
 
 	<select id="queryGenresOfBook" parameterType="int" resultType="Genre">
 		select genre from genre where book = #{bookId};
@@ -34,18 +21,56 @@
 		select * from author where authorId in (select authorId from
 		bookAuthor where bookId = #{bookId});
 	</select>
+	
+	<select id="selectBooks" resultMap="BookRM">
+		select * from book;
+	</select>
+	
+	<select id="selectBooksByTitle" resultMap="BookRM">
+		select * from book where title like #{title};	
+	</select>
+	
+	<select id="selectBooksByAuthor" resultMap="BookRM">
+		select * from book where bookId in (select bookId from bookAuthor where authorId = #{author.authorID});
+	</select>
+	
+	<select id="selectBooksByGenre" resultMap="BookRM">
+		select * from book where bookId in (select book from genre where genre like #{genre});
+	</select>
+	
+	<select id="selectBookById" resultMap="BookRM">
+		select * from book where bookId = #{bookId};
+	</select>
+	
+	<delete id="deleteBookById">
+		delete from bookInstance where instanceOfBook = #{bookId}; 
+		delete from genre where book = #{bookId}; 
+		delete from bookAuthor where bookId = #{bookId}; 
+		delete from book where bookId = #{bookId};
+	</delete>
+	
+	<delete id="removeAuthorFromBook">
+		delete from bookAuthor where bookId = #{bookId} and authorId = #{authorId};
+	</delete>
+	
+	<delete id="removeGenreFromBook">
+		delete from genre where genre = #{genre} and book = #{bookId};
+	</delete>
+	
+	<insert id="insertAuthorForBook">
+		insert into bookAuthor(bookId,authorId) values (#{bookId},#{authorId});
+	</insert>
+	
+	<insert id="insertGenreForBook">
+		insert into genre(genre,book) values(#{genre},#{bookId});
+	</insert>
+	
+	<update id="updateBook">
+		update book set title = #{book.title} where bookId = #{book.bookId};
+	</update>
+	
+	
 
-	<!-- <select id="selectAuthors" resultMap="AuthorResultMap"> select * from 
-		author; </select> <select id="selectAuthorsByName" resultMap="AuthorResultMap"> 
-		select * from author where authorName like #{name}; </select> <select id="selectAuthorsByNationality" 
-		resultMap="AuthorResultMap"> select * from author where nationality = #{nationality}; 
-		</select> <select id="selectAuthorById" resultType="Author"> select * from 
-		author where authorId=#{authorId}; </select> <insert id="recordAuthor"> insert 
-		into author(authorName, nationality, birthDate) values(#{name},#{nationality},#{birthDate}); 
-		</insert> <update id="updateAuthor" parameterType="Author"> update author 
-		set authorName = #{author.name}, nationality = #{author.nationality}, birthDate 
-		= #{author.birthDate} where authorId = #{author.authorID}; </update> <delete 
-		id="deleteAuthor" parameterType="Author"> delete author where authorId = 
-		#{author.authorID}; </delete> -->
+	
 
 </mapper>
