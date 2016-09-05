@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
+
+	<Appenders>
+		<File name="ALL_LOGS" fileName="logs/librarian.log" append="true">
+			<PatternLayout
+				pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</File>
+
+		<File name="DAO_LOGS" fileName="logs/persist.log" append="true">
+			<PatternLayout
+				pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</File>
+
+		<File name="CONTROLLER_LOGS" fileName="logs/controller.log"
+			append="true">
+			<PatternLayout
+				pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</File>
+
+		<File name="MODEL_LOGS" fileName="logs/model.log" append="true">
+			<PatternLayout
+				pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</File>
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5p | %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+
+		<Logger name="hu.uni.miskolc.webtech.librarian.persist" level="info">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="ALL_LOGS" />
+			<AppenderRef ref="DAO_LOGS" />
+		</Logger>
+
+		<Logger name="hu.uni.miskolc.webtech.librarian.controller"
+			level="info">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="ALL_LOGS" />
+			<AppenderRef ref="CONTROLLER_LOGS" />
+		</Logger>
+
+		<Logger name="hu.uni.miskolc.webtech.librarian.model" level="info">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="ALL_LOGS" />
+			<AppenderRef ref="MODEL_LOGS" />
+		</Logger>
+
+		<Root level="trace">
+			<AppenderRef ref="ALL_LOGS" level="error" />
+			<AppenderRef ref="STDOUT" level="warn" />
+		</Root>
+
+	</Loggers>
+
+</Configuration>

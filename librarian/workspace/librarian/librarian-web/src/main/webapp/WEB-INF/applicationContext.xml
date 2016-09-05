@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+ 
+	<context:property-placeholder
+		properties-ref="systemProperties" />
+ 
+	<!-- Properties Bean -->
+ 
+	<bean id="systemProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="mybatisConfig">${mybatis.config}
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- DAO Beans -->
+	<bean id="authorDAO" class="hu.uni.miskolc.webtech.librarian.persist.mysql.AuthorDAOImpl">
+		<constructor-arg name="mybatisConfigPath" value="${mybatis.config}"/>
+		<constructor-arg name="host" value="${database.host}"/>
+		<constructor-arg name="port" value="${database.port}"/>
+		<constructor-arg name="database" value="${database.db}"/>
+		<constructor-arg name="user" value="${database.user}"/>
+		<constructor-arg name="password" value="${database.password}"/>
+	</bean>
+	
+	<bean id="bookManager" class="hu.uni.miskolc.webtech.librarian.service.impl.BookManagerServiceImpl">
+		<constructor-arg name="authorDAO" ref="authorDAO"/>
+	</bean>
+	
+
+
+</beans>

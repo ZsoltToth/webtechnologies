@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>hu.uni.miskolc.webtech</groupId>
+  <artifactId>librarian</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>Library Manager</name>
+  <description>Librarian Web Application Example</description>
+  
+  <dependencies>
+  	<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+</dependency>
+  </dependencies>
+  <modules>
+  	<module>librarian-model</module>
+  	<module>librarian-util</module>
+  	<module>librarian-persist</module>
+  	<module>librarian-service</module>
+  	<module>librarian-persist-mysql</module>
+  	<module>librarian-service-impl</module>
+  	<module>librarian-controller</module>
+  	<module>librarian-web</module>
+  </modules>
+</project>
