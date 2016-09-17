@@ -23,6 +23,21 @@
 	height: 50px;
 	margin: auto;
 	background: red;
+	padding : 5px 0px 5px 0px;
+}
+
+#menuBar ul li{
+    display : inline-block;
+    width : 150px;
+    padding: 5px;
+    margin : 5px;
+    border : 1px solid lime;
+    border-radius : 10px;
+    text-align : center;
+}
+
+#menuBar ul li:HOVER{
+    background: yellow;
 }
 
 #siteBody {
@@ -46,6 +61,21 @@
 	float: right;
 }
 
+#news .newsItem {
+    widht : 80px;
+    padding : auto;
+    border : 2px dashed orange;
+    background : aqua;
+}
+
+#news .newsItemHeader {
+    text-transform : uppercase;
+}
+#news .newsItemContent {
+    font-size : 12px;
+    font-style : italic;
+}
+
 #footer {
 	width: 800px;
 	height: 20px;
@@ -57,10 +87,30 @@
 <body>
 	<div id="header">
 		<div id="bannerLogo">Banner</div>
-		<div id="menuBar">Menu Bar</div>
+		<div id="menuBar">
+		  <ul>
+		      <li>Home</li>
+		      <li>Movies</li>
+		      <li>Time Table</li>
+		      <li>Contact</li>
+		  </ul>
+		</div>
 	</div>
 	<div id="siteBody">
-		<div id="news">news</div>
+		<div id="news">
+		  <div class="newsItem">
+		      <div class="newsItemHeader">News #1</div>
+		      <div class="newsItemContent">News Content</div>
+		  </div>
+		  <div class="newsItem">
+              <div class="newsItemHeader">News #2</div>
+              <div class="newsItemContent">News Content</div>
+          </div>
+          <div class="newsItem">
+              <div class="newsItemHeader">News #3</div>
+              <div class="newsItemContent">News Content</div>
+          </div>
+		</div>
 		<div id="content">
 			<p>Lorem ipsum dolor sit amet, orci id id nullam donec integer
 				morbi, nisl quis perspiciatis, mus hendrerit odio non eros elit,
