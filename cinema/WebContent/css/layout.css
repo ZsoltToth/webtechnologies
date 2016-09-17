@@ -1,0 +1,78 @@
+#header {
+    width: 800px;
+    height: 200px;
+    margin: auto;
+    background: lightblue;
+}
+
+#bannerLogo {
+    width: 800px;
+    height: 150px;
+    margin: auto;
+    background-image: url("../img/banner.jpg");
+}
+
+#menuBar {
+    width: 800px;
+    height: 50px;
+    margin: auto;
+    background: red;
+    padding : 5px 0px 5px 0px;
+}
+
+#menuBar ul li{
+    display : inline-block;
+    width : 150px;
+    padding: 5px;
+    margin : 5px;
+    border : 1px solid lime;
+    border-radius : 10px;
+    text-align : center;
+}
+
+#menuBar ul li:HOVER{
+    background: yellow;
+}
+
+#siteBody {
+    width: 800px;
+    margin: auto;
+    background: yellow;
+}
+
+#content {
+    width: 800px;
+    margin: auto;
+    background: purple;
+    color: yellow;
+}
+
+#news {
+    width: 100px;
+    height: 200px;
+    margin: auto;
+    background: orange;
+    float: right;
+}
+
+#news .newsItem {
+    widht : 80px;
+    padding : auto;
+    border : 2px dashed orange;
+    background : aqua;
+}
+
+#news .newsItemHeader {
+    text-transform : uppercase;
+}
+#news .newsItemContent {
+    font-size : 12px;
+    font-style : italic;
+}
+
+#footer {
+    width: 800px;
+    height: 20px;
+    margin: auto;
+    background: black;
+}

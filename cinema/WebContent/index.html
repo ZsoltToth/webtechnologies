@@ -3,96 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Cinema</title>
-<style type="text/css">
-#header {
-	width: 800px;
-	height: 200px;
-	margin: auto;
-	background: lightblue;
-}
+<link rel="stylesheet" href="css/layout.css"/>
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript">
 
-#bannerLogo {
-	width: 800px;
-	height: 150px;
-	margin: auto;
-	background-image: url("img/banner.jpg");
-}
+$(document).ready(function(){
+	$("#menuBar li a").each(function(){
+		$(this).click(function(event){
+			event.preventDefault();
+			//alert($(this).attr('href'));
+			$('#content').load($(this).attr('href'));
+		});
+	});
+});
 
-#menuBar {
-	width: 800px;
-	height: 50px;
-	margin: auto;
-	background: red;
-	padding : 5px 0px 5px 0px;
-}
-
-#menuBar ul li{
-    display : inline-block;
-    width : 150px;
-    padding: 5px;
-    margin : 5px;
-    border : 1px solid lime;
-    border-radius : 10px;
-    text-align : center;
-}
-
-#menuBar ul li:HOVER{
-    background: yellow;
-}
-
-#siteBody {
-	width: 800px;
-	margin: auto;
-	background: yellow;
-}
-
-#content {
-	width: 800px;
-	margin: auto;
-	background: purple;
-	color: yellow;
-}
-
-#news {
-	width: 100px;
-	height: 200px;
-	margin: auto;
-	background: orange;
-	float: right;
-}
-
-#news .newsItem {
-    widht : 80px;
-    padding : auto;
-    border : 2px dashed orange;
-    background : aqua;
-}
-
-#news .newsItemHeader {
-    text-transform : uppercase;
-}
-#news .newsItemContent {
-    font-size : 12px;
-    font-style : italic;
-}
-
-#footer {
-	width: 800px;
-	height: 20px;
-	margin: auto;
-	background: black;
-}
-</style>
+</script>
 </head>
 <body>
 	<div id="header">
 		<div id="bannerLogo"></div>
 		<div id="menuBar">
 		  <ul>
-		      <li>Home</li>
-		      <li>Movies</li>
-		      <li>Time Table</li>
-		      <li>Contact</li>
+		      <li><a href="home.html">Home</a></li>
+		      <li><a href="movies.html">Movies</a></li>
+		      <li><a href="timeTable.html">Time Table</a></li>
+		      <li><a href="contact.html">Contact</a></li>
 		  </ul>
 		</div>
 	</div>
