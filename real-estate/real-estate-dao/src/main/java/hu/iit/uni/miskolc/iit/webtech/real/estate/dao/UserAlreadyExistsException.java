@@ -1,5 +1,10 @@
 package hu.iit.uni.miskolc.iit.webtech.real.estate.dao;
 
+/**
+ * 
+ * @author zsolt
+ *
+ */
 public class UserAlreadyExistsException extends Exception {
 
 	/**

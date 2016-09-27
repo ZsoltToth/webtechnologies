@@ -11,6 +11,13 @@ import hu.iit.uni.miskolc.iit.webtech.real.estate.dao.ResidenceNotFoundException
 import hu.iit.uni.miskolc.iit.webtech.real.estate.model.Residence;
 import hu.iit.uni.miskolc.iit.webtech.real.estate.model.User;
 
+/**
+ * A Collections based implementation.
+ * The objects are stored in the memory.
+ * 
+ * @author zsolt
+ *
+ */
 public class ResidenceDAOImpl implements ResidenceDAO {
 
 	private static Collection<Residence> residenceDatabase;
