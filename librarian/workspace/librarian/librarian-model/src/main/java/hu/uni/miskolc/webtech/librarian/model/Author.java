@@ -21,6 +21,9 @@ public class Author {
 	public Author(Integer authorID, String name, Nationality nationality, Date birthDate)
 			throws IllegalPersonNameException, IllegalBirthDateException {
 		super();
+		if (authorID < 0) {
+			throw new IllegalArgumentException(String.format("Author Id cannot be negative (%d)", authorID));
+		}
 		this.authorID = authorID;
 		this.setName(name);
 		this.nationality = nationality;
@@ -29,7 +32,9 @@ public class Author {
 
 	public Author(Integer authorID, String name, String nationality, Date birthDate)
 			throws IllegalPersonNameException, IllegalBirthDateException {
+
 		this(authorID, name, Nationality.valueOf(nationality), birthDate);
+
 	}
 
 	public Author(Integer authorID, String name, String nationality, java.sql.Date birthDate)
@@ -43,7 +48,7 @@ public class Author {
 	}
 
 	private void setName(String name) throws IllegalPersonNameException {
-		if ("".equals(name)) {
+		if (name == null || "".equals(name)) {
 			throw new IllegalPersonNameException(String.format("The %s name is not valid", name));
 		}
 		this.name = name;
@@ -98,8 +103,8 @@ public class Author {
 		if (getClass() != obj.getClass())
 			return false;
 		Author other = (Author) obj;
-//		if (authorID != other.authorID)
-//			return false;
+		// if (authorID != other.authorID)
+		// return false;
 		if (birthDate == null) {
 			if (other.birthDate != null)
 				return false;
