@@ -60,4 +60,15 @@
 		<module>librarian-web</module>
 	</modules>
 
+	<distributionManagement>
+		<snapshotRepository>
+			<id>safranek</id>
+			<url>http://safranek.iit.uni-miskolc.hu:8081/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>safranek</id>
+			<url>http://safranek.iit.uni-miskolc.hu:8081/nexus/content/repositories/releases/</url>
+		</repository>
+	</distributionManagement>
+
 </project>
