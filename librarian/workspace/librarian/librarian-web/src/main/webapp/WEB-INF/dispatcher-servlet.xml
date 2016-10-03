@@ -22,7 +22,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 			<value>/WEB-INF/views/</value>
 		</property>
 		<property name="suffix">
-			<value>.jsp</value>
+			<value>.html</value>
 		</property>
 	</bean>
 </beans>
