@@ -12,6 +12,9 @@ import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalBirthDateExcepti
 import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameException;
 import hu.uni.miskolc.webtech.librarian.persist.AuthorDAO;
 import hu.uni.miskolc.webtech.librarian.persist.AuthorNotFoundException;
+import hu.uni.miskolc.webtech.librarian.persist.BookAlreadyExistsException;
+import hu.uni.miskolc.webtech.librarian.persist.BookDAO;
+import hu.uni.miskolc.webtech.librarian.persist.BookNotFoundException;
 import hu.uni.miskolc.webtech.librarian.persist.ExistingAuthorException;
 import hu.uni.miskolc.webtech.librarian.service.AuthorManipulationException;
 import hu.uni.miskolc.webtech.librarian.service.BookManagerService;
@@ -19,9 +22,12 @@ import hu.uni.miskolc.webtech.librarian.service.BookManagerService;
 public class BookManagerServiceImpl implements BookManagerService {
 
 	private AuthorDAO authorDAO;
+	private BookDAO bookDAO;
 
-	public BookManagerServiceImpl(AuthorDAO authorDAO) {
+	public BookManagerServiceImpl(AuthorDAO authorDAO, BookDAO bookDAO) {
+		super();
 		this.authorDAO = authorDAO;
+		this.bookDAO = bookDAO;
 	}
 
 	public void addAuthor(Author author) throws AuthorManipulationException {
@@ -45,23 +51,28 @@ public class BookManagerServiceImpl implements BookManagerService {
 	}
 
 	public void addBook(Book book) {
-		// TODO Auto-generated method stub
-
+		try {
+			bookDAO.createBook(book);
+		} catch (BookAlreadyExistsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void updateBook(Book book) {
-		// TODO Auto-generated method stub
-
+		try {
+			bookDAO.updateBook(book);
+		} catch (BookNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Collection<Book> queryBooks() {
-		// TODO Auto-generated method stub
-		return null;
+		return bookDAO.readBooks();
 	}
 
 	public Collection<Book> queryBooks(Author author) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookDAO.readBooks(author);
 	}
 
 }

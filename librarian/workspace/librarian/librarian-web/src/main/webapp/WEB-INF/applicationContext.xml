@@ -36,8 +36,18 @@
 		<constructor-arg name="password" value="${database.password}"/>
 	</bean>
 	
+	<bean id="bookDAO" class="hu.uni.miskolc.webtech.librarian.persist.mysql.BookDAOImpl">
+		<constructor-arg name="mybatisConfigPath" value="${mybatis.config}"/>
+		<constructor-arg name="host" value="${database.host}"/>
+		<constructor-arg name="port" value="${database.port}"/>
+		<constructor-arg name="database" value="${database.db}"/>
+		<constructor-arg name="user" value="${database.user}"/>
+		<constructor-arg name="password" value="${database.password}"/>
+	</bean>
+	
 	<bean id="bookManager" class="hu.uni.miskolc.webtech.librarian.service.impl.BookManagerServiceImpl">
 		<constructor-arg name="authorDAO" ref="authorDAO"/>
+		<constructor-arg name="bookDAO" ref="bookDAO"/>
 	</bean>
 	
 
