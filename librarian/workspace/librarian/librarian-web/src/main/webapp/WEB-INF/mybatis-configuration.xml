@@ -9,7 +9,9 @@
 			type="hu.uni.miskolc.webtech.librarian.model.Author" />
 		<typeAlias alias="Nationality"
 			type="hu.uni.miskolc.webtech.librarian.model.Nationality" />
-
+		<typeAlias type="hu.uni.miskolc.webtech.librarian.model.Book" />
+		<typeAlias type="hu.uni.miskolc.webtech.librarian.model.Genre" />
+		<typeAlias type="hu.uni.miskolc.webtech.librarian.model.BookInstance" />
 		<typeAlias alias="DateOnlyTypeHandler"
 			type="org.apache.ibatis.type.DateOnlyTypeHandler" />
 
@@ -30,21 +32,13 @@
 		</environment>
 	</environments>
 
-	<!-- It works -->
-	<!-- <mapper url="file:///home/zsolt/workspace/ips/measurement/measurement-persist-mysql/src/main/resources/ZoneMapper.xml" 
-		/> -->
-	<!-- <mapper url="file:///home/zsolt/workspace/ips/measurement/measurement-persist-mysql/src/main/java/uni/miskolc/ips/ilona/measurement/persist/mappers/ZoneMapper.xml" 
-		/> -->
+
 
 	<mappers>
 		<mapper
-			resource="hu/uni/miskolc/webtech/librarian/persist/mysql/mapper/AuthorMapper.xml" /> <!-- uni/miskolc/ips/ilona/measurement/persist/mappers/ZoneMapper.xml -->
+			resource="hu/uni/miskolc/webtech/librarian/persist/mysql/mapper/AuthorMapper.xml" />
+		<mapper
+			resource="hu/uni/miskolc/webtech/librarian/persist/mysql/mapper/BookMapper.xml" />
 
-		<!-- Do not work. Fault may be caused by the classpath. -->
-		<!-- <mapper class="uni.miskolc.ips.ilona.measurement.persist.mappers.ZoneMapper" 
-			/> <package name="uni.miskolc.ips.ilona.measurement.persist.mappers"/> -->
-
-		<!-- <mapper resource="file:///home/zsolt/workspace/ips/measurement/measurement-persist-mysql/resources/ZoneMapper.xml" 
-			/> -->
 	</mappers>
 </configuration>
