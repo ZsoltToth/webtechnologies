@@ -76,7 +76,7 @@
 								<database.db>${database.db}</database.db>
 								<database.user>${database.user}</database.user>
 								<database.password>${database.password}</database.password>
-								<mybatis.config.path>${mybatis.config}</mybatis.config.path>
+								<mybatis.config.path>${project.basedir}librarian/workspace/librarian/librarian-persist-mysql/src/main/resources/mybatis-configuration.xml</mybatis.config.path>
 							</systemPropertyVariables>
 							<excludes>
 								<exclude>none</exclude>
