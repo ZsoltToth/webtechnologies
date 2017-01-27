@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class MyBatisTest {
 
 	private static final String MYBATIS_CONFIG_PATH = "src/main/resources/mybatis-configuration.xml";
