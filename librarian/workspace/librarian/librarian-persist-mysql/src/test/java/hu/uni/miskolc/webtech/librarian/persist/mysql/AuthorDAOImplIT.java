@@ -26,7 +26,7 @@ import hu.uni.miskolc.webtech.librarian.persist.AuthorDAO;
 import hu.uni.miskolc.webtech.librarian.persist.AuthorNotFoundException;
 import hu.uni.miskolc.webtech.librarian.persist.ExistingAuthorException;
 
-public class AuthorDAOImplTest extends SetupDBTests {
+public class AuthorDAOImplIT extends SetupDBTests {
 
 	private AuthorDAO dao;
 

@@ -23,7 +23,7 @@ import hu.uni.miskolc.webtech.librarian.model.exceptions.IllegalPersonNameExcept
 import hu.uni.miskolc.webtech.librarian.persist.BookDAO;
 import hu.uni.miskolc.webtech.librarian.persist.BookNotFoundException;
 
-public class BookDAOImplTest extends SetupDBTests {
+public class BookDAOImplIT extends SetupDBTests {
 
 	private BookDAO dao;
 
