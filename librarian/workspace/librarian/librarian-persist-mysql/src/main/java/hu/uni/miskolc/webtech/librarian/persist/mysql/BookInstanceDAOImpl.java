@@ -4,9 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Properties;
 
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +20,7 @@ import hu.uni.miskolc.webtech.librarian.persist.BookInstanceAlreadyExistsExcepti
 import hu.uni.miskolc.webtech.librarian.persist.BookInstanceDAO;
 import hu.uni.miskolc.webtech.librarian.persist.BookInstanceNotFoundException;
 import hu.uni.miskolc.webtech.librarian.persist.BookNotFoundException;
+import hu.uni.miskolc.webtech.librarian.persist.mysql.mapper.BookInstanceMapper;
 
 public class BookInstanceDAOImpl implements BookInstanceDAO {
 	
@@ -46,8 +49,11 @@ public class BookInstanceDAOImpl implements BookInstanceDAO {
 	}
 
 	public Collection<BookInstance> readInstances(Book book) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<BookInstance> result = new ArrayList<>();
+		SqlSession session = sqlSessionFactory.openSession();
+		BookInstanceMapper mapper = session.getMapper(BookInstanceMapper.class);
+		result = mapper.selectAllBookInstances();
+		return result;
 	}
 
 	public void updateBookInstance(BookInstance bookInstance) throws BookInstanceNotFoundException {

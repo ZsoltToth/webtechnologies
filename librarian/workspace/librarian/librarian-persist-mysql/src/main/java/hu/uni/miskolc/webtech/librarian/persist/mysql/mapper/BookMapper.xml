@@ -38,7 +38,7 @@
 		select * from book where bookId in (select book from genre where genre like #{genre});
 	</select>
 	
-	<select id="selectBookById" resultMap="BookRM">
+	<select id="selectBookById" resultMap="BookRM" resultType="Book">
 		select * from book where bookId = #{bookId};
 	</select>
 	
