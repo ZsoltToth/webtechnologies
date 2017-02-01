@@ -10,4 +10,8 @@ insert into bookAuthor values(1,2);
 
 insert into genre values('Romance',1);
 
+insert into bookInstance values(1,1,100);
+insert into bookInstance values(2,1,100);
+insert into bookInstance values(3,1,100);
+
 COMMIT;
