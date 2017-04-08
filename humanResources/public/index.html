@@ -5,7 +5,7 @@
 <script src="js/angular.min.js"></script>
 </head>
 
-<body>
+<body ng-app="employeeManager" ng-controller="menuCtrl">
 
  <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -14,20 +14,30 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Page 1</a></li>
+      <li><button type="button" class="btn btn-primary" ng-click="listEmployees()">List Employees</button></li>
+      <li><button type="button" class="btn btn-success" ng-click="addEmployee()">Add Employee</button></li>
       <li><a href="#">Page 2</a></li>
       <li><a href="#">Page 3</a></li>
     </ul>
   </div>
 </nav>
 
-<div class="container" style="margin-top:50px" ng-app="employeeManager" ng-controller="menuCtrl">
+<div class="container" style="margin-top:50px">
  <div class="row">
-  <div class="col-sm-4">
-	<button type="button" class=".btn btn-primary" ng-click="listEmployees()">List Employees</button><br/>
-	<button type="button" class=".btn btn-success" ng-click="addEmployee()">Add Employee</button>
-</div>
-  <div class="col-sm-8" id="content">
+  <div class="col-md-12" id="addEmployeeForm">
+	<div class="panel panel-default">
+	<div class="panel-heading">Add Employee</div>
+	<div class="panel-body">
+		<form id="employeeForm">
+			<input name="name" type="text"/><br/>
+			<input name="position" type="text"/><br/>
+			<input name="salary" type="text"/><br/>
+			<button type="button" class="btn btn-success" ng-click="sendForm()">Add</button>
+		</form>
+	</div>
+	</div>
+  </div>
+  <div class="col-md-12" id="employeeList">
 	<table class="table table-striped">
 		<tr ng-repeat="employee in employees">
 			<td>{{employee.name}}</td>
@@ -45,12 +55,28 @@ var employeeManagementModule = angular.module("employeeManager",[]);
 
 employeeManagementModule.controller("menuCtrl",function($scope,$http){
 	$scope.listEmployees = function(){
+	
+		document.getElementById("addEmployeeForm").style.visibility = "hidden";
+		document.getElementById("employeeList").style.visibility = "visible";
+
 		$http.get('/employees').then(function(resp){
 			$scope.employees = resp.data;
 		});
 	};
 	$scope.addEmployee = function(){
-		alert('fdsa');
+		document.getElementById("addEmployeeForm").style.visibility = "visible";
+		document.getElementById("employeeList").style.visibility = "hidden";
+	};
+	$scope.sendForm = function(){
+		var form = document.getElementById('employeeForm');
+		var employee = new Object();
+		employee.name = form['name'].value;
+		employee.position = form['position'].value;
+		employee.salary = form['salary'].value;
+		console.log(JSON.stringify(employee));
+		$http.post('/addEmployee',JSON.stringify(employee)).success(function(){
+			alert('success');
+		});
 	}
 });	
 
