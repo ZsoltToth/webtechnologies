@@ -1,0 +1,12 @@
+[
+{
+	"name" : "Arthur",
+	"position" : "King",
+	"salary" : 1000
+},
+{
+	"name" : "Merlin",
+	"position" : "Wizard",
+	"salary" : 900
+}
+]
